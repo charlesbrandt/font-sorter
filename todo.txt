@@ -1,14 +1,12 @@
  item edits:
- - way to edit position (ideally click number to edit)
- - bump to top of list
  - remove item from list ('x')
+ - way to edit position (ideally click number to edit)
 
  nav edits:
- - change font size
  - change font color
  - change background color
  - put all nav items in a floating / auto hide navigation bar (standard component?)
- - show a few different samples by default? (similar to google fonts)
+ - show a few different text examples by default? (similar to google fonts)
 
  features:
  - save list (just a list of font family names should be fine)
