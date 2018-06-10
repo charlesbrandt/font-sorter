@@ -91,6 +91,7 @@ export default {
     onMoveItem (index, destination) {
       console.log(index, destination)
     },
+    
     fetchData () {
       //console.log(this.post)
       this.loading = true
