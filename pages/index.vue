@@ -1,27 +1,11 @@
 <template>
   <section class="container">
-      <!--
-      <h1 class="title">
-        font-sorter
-      </h1>
-      <h2 class="subtitle">
-        Easily pick your favorite web fonts for a project
-      </h2>
-
-      <div>
-        Error: {{ error }}
-      </div>
-      <div>
-        Fonts: {{ fonts }}
-      </div>
-
-      // didn't get this one working:
-      <font-sample v-for="family in fonts" v-bind:family="family"></font-sample>
-      -->
     <div >
       <input v-model="sample" placeholder="edit me">
       <input v-model="font_size" placeholder="14">
-
+      <button v-on:click="onGetList">get</button>
+      <textarea v-model="order" placeholder=""></textarea>
+      <button v-on:click="onSetList">set</button>
       
       <draggable v-model="fonts" @start="drag=true" @end="drag=false" class="all-fonts">
         <font-sample
@@ -34,26 +18,6 @@
            >{{ sample }}</font-sample>
       </draggable>
     </div>
-      <!--
-      <ul>
-        <li
-           is="font-sample"
-           v-for="family in fonts"
-           v-bind:key="family.family"
-           v-bind:webfont="family"
-           ></li>
-      </ul>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-      -->
   </section>
 </template>
 
@@ -63,11 +27,28 @@ import draggable from 'vuedraggable'
 import FontSample from '~/components/FontSample.vue'
 // import AppLogo from '~/components/AppLogo.vue'
 
+// https://stackoverflow.com/questions/237104/how-do-i-check-if-an-array-includes-an-object-in-javascript
+function find_font(font_list, name) {
+  var i = font_list.length;
+  while (i--) {
+    console.log("Checking: ", font_list[i].family, " vs. ", name)
+    if (font_list[i].family === name) {
+      var match = font_list.splice(i, 1)
+      return match[0];
+    }
+  }
+  return false;
+}
+
 export default {
   data () {
     return {
       loading: false,
-      fonts: [  ],
+      // the actual font objects
+      fonts: [ ],
+      // a list of just the font names, in the desired order
+      order: [ ],
+
       // http://clagnut.com/blog/2380/
       // https://en.wikipedia.org/wiki/The_quick_brown_fox_jumps_over_the_lazy_dog
       // The quick brown fox jumps over the lazy dog
@@ -89,7 +70,10 @@ export default {
 
   methods: {
     onMoveItem (index, destination) {
-      console.log(index, destination)
+      // console.log(index, destination)
+      let item = this.fonts.splice(index, 1)[0]
+      this.fonts.splice(destination, 0, item)
+      // console.log( this.fonts )
     },
     
     fetchData () {
@@ -99,12 +83,57 @@ export default {
         .then((response) => {
           this.loading = false
           //console.log(response)
-          this.fonts = response.data.items;
+          // full set:
+          this.fonts = response.data.items
+          // limited list: 
+          //this.fonts = response.data.items.slice(0, 10)
         })
         .catch((error) => {
           this.error = error.toString();
         });
+    },
+
+    onGetList () {
+      //console.log("made it to onGetList")
+      var font
+      // clear the array
+      this.order = []
+      for (var i = 0; i < this.fonts.length; i++) {
+        font = this.fonts[i]
+        this.order.push(font.family)
+      }
+      //console.log(this.order)
+    },
+
+    onSetList () {
+      var cur_name
+      var cur_font = false
+      var names
+      if (!Array.isArray(this.order)) { 
+        names = this.order.split(',')
+      }
+      else {
+        names = this.order
+      }
+      
+      //console.log("made it to onGetList")
+      var original_fonts = this.fonts
+      // clear the font array
+      this.fonts = []
+      // console.log(original_fonts)
+      for (var i = 0; i < names.length; i++) {
+        cur_name = names[i]
+        // console.log("original fonts length: ", original_fonts.length)
+        cur_font = find_font(original_fonts, cur_name)
+        console.log(cur_font)
+        if (cur_font) {
+          this.fonts.push(cur_font)
+        }
+        
+      }
+      //console.log(this.order)
     }
+
   }
 }
 </script>
