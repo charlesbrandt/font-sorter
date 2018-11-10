@@ -1,13 +1,15 @@
- item edits:
+way to load fonts from local system e.g. ubuntu studio fonts
+
+item edits:
  - remove item from list ('x')
  - way to edit position (ideally click number to edit)
 
- nav edits:
+nav edits:
  - change font color
  - change background color
  - put all nav items in a floating / auto hide navigation bar (standard component?)
  - show a few different text examples by default? (similar to google fonts)
 
- features:
+features:
  - save list (just a list of font family names should be fine)
- - load (previously saved) list 
+ - load (previously saved) list

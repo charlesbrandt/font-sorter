@@ -1,3 +1,14 @@
+*2018.07.23 10:49:44 code
+/c/public/font-sorter/instances.txt
+/c/public/font-sorter/launch.sh
+/c/public/font-sorter/journal.txt
+/c/public/font-sorter/layouts/default.vue
+/c/public/font-sorter/nuxt.config.js
+/c/public/sortable_list/js/main.js
+/c/public/font-sorter/components/FontSample.vue
+/c/public/font-sorter/todo.txt
+/c/public/font-sorter/pages/index.vue
+
 *2018.05.05 16:27:22 code
 /c/public/font-sorter/instances.txt
 /c/public/font-sorter/launch.sh
@@ -17,5 +28,3 @@
 /c/public/font-sorter/launch.sh
 /c/public/font-sorter/journal.txt
 /c/public/font-sorter/todo.txt
-
-
